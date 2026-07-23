@@ -36,15 +36,38 @@ def parse(channel: str, raw: str) -> ChatMessage | None:
 
         color = tags.get("color") or DEFAULT_NICK_COLOR
 
-        badges = []
+
 
         badges_raw = tags.get("badges", "")
 
+        badges = []
+
         if badges_raw:
-            badges = [
-                badge.split("/")[0]
-                for badge in badges_raw.split(",")
-            ]
+            for badge in badges_raw.split(","):
+                name, version = badge.split("/")
+
+                badges.append({
+                    "name": name,
+                    "version": version
+                })
+
+        emotes = []
+
+        emotes_raw = tags.get("emotes")
+
+        if emotes_raw:
+
+            for block in emotes_raw.split("/"):
+                eid, positions = block.split(":")
+
+                for pos in positions.split(","):
+                    start, end = pos.split("-")
+
+                    emotes.append({
+                        "id": eid,
+                        "start": int(start),
+                        "end": int(end)
+                    })
 
         department, department_color, loud_voice = get_role(badges)
         # print(login, badges)
@@ -55,6 +78,7 @@ def parse(channel: str, raw: str) -> ChatMessage | None:
             text=message,
             color=color,
             badges=badges,
+            emotes=emotes,
             department=department,
             department_color=department_color,
             speech=get_speech(message),

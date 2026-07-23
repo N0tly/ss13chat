@@ -74,3 +74,27 @@ body {
     font-weight: bold;
 
 }
+
+.badges {
+    display:inline-flex;
+    gap:3px;
+    margin-right:4px;
+}
+
+.badge {
+
+    width:18px;
+    height:18px;
+
+    vertical-align:middle;
+
+}
+
+.emote {
+
+    width:28px;
+    height:28px;
+
+    vertical-align:middle;
+
+}

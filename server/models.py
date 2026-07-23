@@ -9,8 +9,9 @@ class ChatMessage:
     display_name: str
     text: str
     color: str
+    emotes: list[dict] = field(default_factory=list)
 
-    badges: List[str] = field(default_factory=list)
+    badges: List[dict] = field(default_factory=list)
 
     department: str = "Общий"
     department_color: str = "#5fc95f"
@@ -31,4 +32,5 @@ class ChatMessage:
             "department_color": self.department_color,
             "speech": self.speech,
             "loud_voice": self.loud_voice,
+            "emotes": self.emotes,
         }

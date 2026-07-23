@@ -33,7 +33,7 @@ class TwitchClient:
 
                 async with websockets.connect(TWITCH_IRC) as ws:
 
-                    await ws.send("CAP REQ :twitch.tv/tags")
+                    await ws.send("CAP REQ :twitch.tv/tags twitch.tv/commands")
                     await ws.send("PASS oauth:anonymous")
                     await ws.send("NICK justinfan12345")
                     await ws.send(f"JOIN #{self.channel}")

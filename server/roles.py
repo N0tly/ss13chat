@@ -5,21 +5,26 @@ MEDICAL = ("Медицина", "#00b9f2")
 COMMAND = ("Командование", "#ffe000")
 
 
-def get_role(badges: list[str]) -> tuple[str, str, bool]:
-    badges = set(badges)
-    if "bot-badge" in badges:
+def get_role(badges: list[dict]) -> tuple[str, str, bool]:
+
+    names = {
+        badge["name"]
+        for badge in badges
+    }
+
+    if "bot-badge" in names:
         return (*MEDICAL, False)
 
-    if "broadcaster" in badges:
+    if "broadcaster" in names:
         return (*COMMAND, True)
 
-    if "vip" in badges:
+    if "vip" in names:
         return (*COMMAND, True)
 
-    if "moderator" in badges:
+    if "moderator" in names:
         return (*SECURITY, False)
 
-    if "subscriber" in badges:
+    if "subscriber" in names:
         return (*SUPPLY, False)
 
     return (*COMMON, False)

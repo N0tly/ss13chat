@@ -38,6 +38,22 @@ source.onmessage = ({ data }) => {
     department.style.textShadow = glow(msg.department_color);
     department.textContent = `[${msg.department}] `;
 
+    const badgeBox = document.createElement("span");
+    badgeBox.className = "badges";
+
+
+    for (const badge of msg.badges) {
+
+        const img = document.createElement("img");
+
+        img.className = "badge";
+
+        img.src =
+            `https://static-cdn.jtvnw.net/badges/v1/${badge.name}/${badge.version}/1`;
+
+        badgeBox.append(img);
+    }
+
     const nick = document.createElement("span");
     nick.className = "nick";
     nick.style.color = msg.color;
@@ -54,14 +70,65 @@ source.onmessage = ({ data }) => {
     text.className = "text";
     text.style.color = msg.department_color;
     text.style.textShadow = glow(msg.department_color);
-    text.textContent = `"${msg.text}"`;
+    function renderEmotes(text, emotes){
+
+    if(!emotes.length)
+        return document.createTextNode(`"${text}"`);
+
+
+    let parts = [];
+    let last = 0;
+
+
+    for(const e of emotes){
+
+        parts.push(
+            document.createTextNode(
+                text.substring(last,e.start)
+            )
+        );
+
+
+        const img=document.createElement("img");
+
+        img.className="emote";
+
+        img.src =
+        `https://static-cdn.jtvnw.net/emoticons/v2/${e.id}/default/dark/1.0`;
+
+
+        parts.push(img);
+
+        last=e.end+1;
+    }
+
+
+    parts.push(
+        document.createTextNode(
+            text.substring(last)
+        )
+    );
+
+
+    const span=document.createElement("span");
+
+    span.append(...parts);
+
+    return span;
+}
+    text.append(
+    document.createTextNode('"'),
+    renderEmotes(msg.text,msg.emotes),
+    document.createTextNode('"')
+);
 
     row.append(
+        badgeBox,
         department,
         nick,
         speech,
         text
-    );
+);
 
     chat.append(row);
 
