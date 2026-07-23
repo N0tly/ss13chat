@@ -1,0 +1,76 @@
+@font-face {
+    font-family: Comic;
+    src:
+        local("Comic Sans MS Bold"),
+        local("Comic Sans MS");
+}
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    overflow: hidden;
+
+    font-family: Comic;
+
+}
+
+#chat {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+
+    padding: 8px;
+
+}
+
+.message {
+
+    font-size: 14pt;
+
+    letter-spacing: -.015em;
+
+    color: white;
+
+    word-break: break-word;
+
+    font-weight: bold;
+
+}
+
+.message.loud {
+
+    font-size: 21pt;
+
+    letter-spacing: -.02em;
+
+}
+
+.department {
+
+    font-weight: bold;
+
+}
+
+.nick {
+
+    font-weight: bold;
+
+}
+
+.speech {
+
+    font-weight: bold;
+
+}
+
+.text {
+
+    font-weight: bold;
+
+}
